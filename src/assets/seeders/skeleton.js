@@ -1,8 +1,11 @@
 'use strict';
 
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    /**
+/**
+ * @param {import('sequelize').QueryInterface} queryInterface
+ * @param {import('sequelize')} Sequelize
+ */
+const up = async (queryInterface, Sequelize) => {
+	/**
      * Add seed commands here.
      *
      * Example:
@@ -11,14 +14,22 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-  },
+};
 
-  down: async (queryInterface, Sequelize) => {
-    /**
+/**
+ * @param {import('sequelize').QueryInterface} queryInterface
+ * @param {import('sequelize')} Sequelize
+ */
+const down = async (queryInterface, Sequelize) => {
+	/**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-  }
+};
+
+module.exports = {
+	up,
+	down,
 };

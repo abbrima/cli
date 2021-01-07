@@ -1,34 +1,45 @@
 'use strict';
 
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
+/**
+ * @param {import('sequelize').QueryInterface} queryInterface
+ * @param {import('sequelize')} Sequelize
+ */
+async function up(queryInterface,Sequelize){
     await queryInterface.createTable('<%= tableName %>', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-
-      <% attributes.forEach(function(attribute) { %>
-        <%= attribute.fieldName %>: {
-          type: Sequelize.<%= attribute.dataFunction ? `${attribute.dataFunction.toUpperCase()}(Sequelize.${attribute.dataType.toUpperCase()})` : attribute.dataValues ? `${attribute.dataType.toUpperCase()}(${attribute.dataValues})` : attribute.dataType.toUpperCase() %>
+        id: {
+            allowNull: false,
+            autoIncrement: true,
+            primaryKey: true,
+            type: Sequelize.INTEGER
         },
-      <% }) %>
 
-      <%= createdAt %>: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
+        <% attributes.forEach(function(attribute) { %>
+            <%= attribute.fieldName %>: {
+            type: Sequelize.<%= attribute.dataFunction ? `${attribute.dataFunction.toUpperCase()}(Sequelize.${attribute.dataType.toUpperCase()})` : attribute.dataValues ? `${attribute.dataType.toUpperCase()}(${attribute.dataValues})` : attribute.dataType.toUpperCase() %>
+            },
+        <% }) %>
 
-      <%= updatedAt %>: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
-  },
+        <%= createdAt %>: {
+            allowNull: false,
+            type: Sequelize.DATE
+        },
 
-  down: async (queryInterface, Sequelize) => {
+        <%= updatedAt %>: {
+            allowNull: false,
+            type: Sequelize.DATE
+        }
+        });
+}
+
+/**
+ * @param {import('sequelize').QueryInterface} queryInterface
+ * @param {import('sequelize')} Sequelize
+ */
+async function down(queryInterface,Sequelize){
     await queryInterface.dropTable('<%= tableName %>');
-  }
+
+}
+
+module.exports = {
+    up,down
 };
