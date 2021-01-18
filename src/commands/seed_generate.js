@@ -25,17 +25,21 @@ exports.handler = function (args) {
 
   let filePath = 'seeders/skeleton.js';
   let attributes = {};
+  let filename = args.name;
   if (args.role) {
     if (!roles.includes(args.role))
       throw new Error(
         `Invalid role provided, allowed are [${roles.join(',')}]`
       );
-    if (roles == 'sys') filePath = 'seeders/sysRoleSkeleton.js';
-    attributes.roleName = args.name;
+    if (roles == 'sys') {
+      filePath = 'seeders/sysRoleSkeleton.js';
+      attributes.roleName = args.name;
+      filename = `SYS: ${args.name}`;
+    }
   }
 
   fs.writeFileSync(
-    helpers.path.getSeederPath(args.name),
+    helpers.path.getSeederPath(filename),
     helpers.template.render(filePath, attributes, {
       beautify: false,
     })
